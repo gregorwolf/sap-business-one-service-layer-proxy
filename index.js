@@ -75,13 +75,17 @@ server.listen(config.port);
 //
 // Create your target server
 //
-http.createServer(function (req, res) {
-  res.writeHead(200, 
-    { 
-      'Content-Type': 'text/plain',
-      'Set-Cookie': 'mycookie=' + new Date()
-    }
-  );
-  res.write('request successfully proxied to: ' + req.url + '\n' + JSON.stringify(req.headers, true, 2));
-  res.end();
-}).listen(4004);
+if(process.env.START_TESTSERVER) {
+  
+  http.createServer(function (req, res) {
+    res.writeHead(200, 
+      { 
+        'Content-Type': 'text/plain',
+        'Set-Cookie': 'mycookie=' + new Date()
+      }
+    );
+    res.write('request successfully proxied to: ' + req.url + '\n' + JSON.stringify(req.headers, true, 2));
+    res.end();
+  }).listen(4004);
+  console.log("Testserver started on port 4004")
+}

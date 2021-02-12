@@ -17,3 +17,4 @@ The configuration is done via the following environment variables:
 - TARGET_URL defines the URL of the Service Layer
 - PORT defines the port the proxy is listening to
 - TIMEOUT defines the session timeout in seconds
+- START_TESTSERVER defines if the testserver should be started
