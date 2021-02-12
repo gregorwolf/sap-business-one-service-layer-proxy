@@ -1,0 +1,17 @@
+{
+  "name": "sap-business-one-service-layer-proxy",
+  "version": "0.0.1",
+  "description": "SAP Business One Service Layer Proxy",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "http-proxy": "^1.18.1"
+  }
+}

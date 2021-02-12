@@ -1,0 +1,6 @@
+###
+GET http://localhost:5050/
+
+###
+GET http://localhost:5050/
+Authorization: Basic {{$dotenv USERNAME}}:{{$dotenv PASSWORD}}
