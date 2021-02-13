@@ -3,8 +3,14 @@
   "version": "0.0.1",
   "description": "SAP Business One Service Layer Proxy",
   "main": "index.js",
+  "engines": {
+    "node": "^10 || ^12 || ^14"
+  },
   "scripts": {
     "start": "node index.js",
+    "start:docker": "docker run -e \"NODE_ENV=production\" --env-file .env -p 5050:5050 --init -t gregorwolf/sap-business-one-service-layer-proxy:latest",
+    "build:docker": "docker build -t gregorwolf/sap-business-one-service-layer-proxy:latest .",
+    "push:docker": "docker push gregorwolf/sap-business-one-service-layer-proxy:latest",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": ["SAP Business One", "Service Layer", "OData V4", "OData", "Authentication"],

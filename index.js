@@ -9,9 +9,10 @@ var http = require('http'),
 var proxy = httpProxy.createProxyServer({});
 var sessions = {};
 var config = {
-  target: process.env.TARGET_URL,
-  port: process.env.PORT,
-  timeout: process.env.TIMEOUT
+  target: process.env.TARGET_URL || 'http://127.0.0.1:4004',
+  proxyport: process.env.PORT || 5050,
+  testserverport: 4004,
+  timeout: process.env.TIMEOUT || 1500 // 25 Minutes
 }
 // To modify the proxy connection before data is sent, you can listen
 // for the 'proxyReq' event. When the event is fired, you will receive
@@ -68,9 +69,10 @@ var server = http.createServer(function(req, res) {
     });  
   }
 });
- 
-console.log("listening on port 5050")
-server.listen(config.port);
+console.log(`proxy listening on port     : ${config.proxyport}`)
+server.listen(config.proxyport);
+console.log(`session timeout             : ${config.timeout}`)
+console.log(`target url                  : ${config.target}`)
 
 //
 // Create your target server
@@ -86,6 +88,6 @@ if(process.env.START_TESTSERVER) {
     );
     res.write('request successfully proxied to: ' + req.url + '\n' + JSON.stringify(req.headers, true, 2));
     res.end();
-  }).listen(4004);
-  console.log("Testserver started on port 4004")
+  }).listen(config.testserverport);
+  console.log(`testserver listening on port: ${config.testserverport}`)
 }
