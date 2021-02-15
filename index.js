@@ -6,7 +6,9 @@ var http = require('http'),
 //
 // Create a proxy server with custom application logic
 //
-var proxy = httpProxy.createProxyServer({});
+var proxy = httpProxy.createProxyServer({
+  secure: false
+});
 var sessions = {};
 var config = {
   target: process.env.TARGET_URL || 'http://127.0.0.1:4004',
