@@ -18,3 +18,14 @@ The configuration is done via the following environment variables:
 - PORT defines the port the proxy is listening to
 - TIMEOUT defines the session timeout in seconds
 - START_TESTSERVER defines if the testserver should be started
+- LOG_LEVEL is set to info by default. With debug you get a deeper insight
+
+To setup the environment variables quickly the dotenv module is included in the project. So you can create a *.env* file in the root folder of this project and add the following content:
+
+```
+TARGET_URL=http://127.0.0.1:4004
+PORT=5050
+TIMEOUT=1500
+START_TESTSERVER=x
+LOG_LEVEL=debug
+```

@@ -1,8 +1,10 @@
 require('dotenv').config();
 
 var http = require('http'),
-    httpProxy = require('http-proxy');
- 
+    httpProxy = require('http-proxy'),
+    pino = require('pino');
+
+const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
 //
 // Create a proxy server with custom application logic
 //
@@ -29,8 +31,9 @@ proxy.on('proxyReq', function(proxyReq, req, res, options) {
     // Check if timeout was reached
     if(new Date().getTime() - config.timeout * 1000 > sessions[req.headers.authorization].started) {
       // delete the cookie and start a new timeout
-      console.log("Reset current session");
-      // console.log(sessions[req.headers.authorization]);
+      logger.info("Reset current session");
+      logger.debug("Content of the sessions variable for this authorization:");
+      logger.debug(sessions[req.headers.authorization]);
       sessions[req.headers.authorization] = {
         cookie: "",
         started: new Date().getTime()
@@ -38,6 +41,8 @@ proxy.on('proxyReq', function(proxyReq, req, res, options) {
     } else {
       // use the existing cookie
       if(sessions[req.headers.authorization].cookie) {
+        logger.debug("Cookie sent in this request:");
+        logger.debug(sessions[req.headers.authorization].cookie);
         proxyReq.setHeader('cookie', sessions[req.headers.authorization].cookie);
         delete req.headers['cookie'];
       }
@@ -48,16 +53,19 @@ proxy.on('proxyReq', function(proxyReq, req, res, options) {
       cookie: "",
       started: new Date().getTime()
     };
-    // console.log(sessions[req.headers.authorization]);
+    logger.debug("Creating new session for this authorization");
+    logger.debug(sessions[req.headers.authorization]);
   }
-  // console.log(req.headers.authorization);
 });
 
 proxy.on('proxyRes', function(proxyRes, req, res) {
   if(proxyRes.headers['set-cookie'] && proxyRes.headers['set-cookie'][0]) {
     sessions[req.headers.authorization].cookie = proxyRes.headers['set-cookie'][0];
+    logger.debug("Received Cookie:");
+    logger.debug(sessions[req.headers.authorization].cookie);
   }
-  // console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
+  logger.debug('RAW Response from the target:');
+  logger.debug(JSON.stringify(proxyRes.headers, true, 2));
 });
  
 var server = http.createServer(function(req, res) {
@@ -71,10 +79,10 @@ var server = http.createServer(function(req, res) {
     });  
   }
 });
-console.log(`proxy listening on port     : ${config.proxyport}`)
+logger.info(`proxy listening on port     : ${config.proxyport}`)
 server.listen(config.proxyport);
-console.log(`session timeout             : ${config.timeout}`)
-console.log(`target url                  : ${config.target}`)
+logger.info(`session timeout             : ${config.timeout}`)
+logger.info(`target url                  : ${config.target}`)
 
 //
 // Create your target server
@@ -91,5 +99,5 @@ if(process.env.START_TESTSERVER) {
     res.write('request successfully proxied to: ' + req.url + '\n' + JSON.stringify(req.headers, true, 2));
     res.end();
   }).listen(config.testserverport);
-  console.log(`testserver listening on port: ${config.testserverport}`)
+  logger.info(`testserver listening on port: ${config.testserverport}`)
 }

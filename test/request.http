@@ -4,3 +4,11 @@ GET http://localhost:5050/
 ###
 GET http://localhost:5050/
 Authorization: Basic {{$dotenv USERNAME}}:{{$dotenv PASSWORD}}
+
+###
+GET http://localhost:5050/b1s/v2
+Authorization: Basic {​​​​​{​​​​​$dotenv USERNAME}​​​​​}​​​​​:{​​​​​{​​​​​$dotenv PASSWORD}​​​​​}​​​​​
+
+###
+GET http://localhost:5050/b1s/v2/BusinessPartners('C15554')
+Authorization: Basic {​​​​​{​​​​​$dotenv USERNAME}​​​​​}​​​​​:{​​​​​{​​​​​$dotenv PASSWORD}​​​​​}​​​​​

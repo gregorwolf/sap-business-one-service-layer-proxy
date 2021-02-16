@@ -13,11 +13,21 @@
     "push:docker": "docker push gregorwolf/sap-business-one-service-layer-proxy:latest",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["SAP Business One", "Service Layer", "OData V4", "OData", "Authentication"],
+  "keywords": [
+    "SAP Business One",
+    "Service Layer",
+    "OData V4",
+    "OData",
+    "Authentication"
+  ],
   "author": "gregor.wolf@gmail.com",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "http-proxy": "^1.18.1"
+    "http-proxy": "^1.18.1",
+    "pino": "^6.11.1"
+  },
+  "devDependencies": {
+    "pino-pretty": "^4.5.0"
   }
 }
