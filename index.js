@@ -74,6 +74,8 @@ var server = http.createServer(function(req, res) {
     res.write('You must provide an authentication header');
     res.end();
   } else {
+    logger.debug("proxy - decoded authorization header:");
+    decodeBasicAuth(req);
     proxy.web(req, res, {
       target: config.target
     });  
@@ -90,6 +92,10 @@ logger.info(`target url                  : ${config.target}`)
 if(process.env.START_TESTSERVER) {
   
   http.createServer(function (req, res) {
+    if(req.headers.authorization) {
+      logger.debug("testserver - decoded authorization header:");
+      decodeBasicAuth(req);
+    }
     res.writeHead(200, 
       { 
         'Content-Type': 'text/plain',
@@ -100,4 +106,13 @@ if(process.env.START_TESTSERVER) {
     res.end();
   }).listen(config.testserverport);
   logger.info(`testserver listening on port: ${config.testserverport}`)
+}
+
+function decodeBasicAuth(req) {
+  var tmp = req.headers.authorization.split(' '); // Split on a space, the original auth looks like  "Basic Y2hhcmxlczoxMjM0NQ==" and we need the 2nd part
+
+  var buf = new Buffer.from(tmp[1], 'base64'); // create a buffer and tell it the data coming in is base64
+  var plain_auth = buf.toString();        // read it back out as a string
+
+  logger.debug(plain_auth);
 }
