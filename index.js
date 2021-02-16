@@ -74,8 +74,10 @@ var server = http.createServer(function(req, res) {
     res.write('You must provide an authentication header');
     res.end();
   } else {
-    logger.debug("proxy - decoded authorization header:");
-    decodeBasicAuth(req);
+    if(process.env.LOG_LEVEL === 'debug') {
+      logger.debug("proxy - decoded authorization header:");
+      decodeBasicAuth(req);  
+    }
     proxy.web(req, res, {
       target: config.target
     });  
@@ -93,8 +95,10 @@ if(process.env.START_TESTSERVER) {
   
   http.createServer(function (req, res) {
     if(req.headers.authorization) {
-      logger.debug("testserver - decoded authorization header:");
-      decodeBasicAuth(req);
+      if(process.env.LOG_LEVEL === 'debug') {
+        logger.debug("testserver - decoded authorization header:");
+        decodeBasicAuth(req);
+      }
     }
     res.writeHead(200, 
       { 
@@ -109,10 +113,12 @@ if(process.env.START_TESTSERVER) {
 }
 
 function decodeBasicAuth(req) {
-  var tmp = req.headers.authorization.split(' '); // Split on a space, the original auth looks like  "Basic Y2hhcmxlczoxMjM0NQ==" and we need the 2nd part
+  if(process.env.LOG_LEVEL === 'debug') {
+    var tmp = req.headers.authorization.split(' '); // Split on a space, the original auth looks like  "Basic Y2hhcmxlczoxMjM0NQ==" and we need the 2nd part
 
-  var buf = new Buffer.from(tmp[1], 'base64'); // create a buffer and tell it the data coming in is base64
-  var plain_auth = buf.toString();        // read it back out as a string
+    var buf = new Buffer.from(tmp[1], 'base64'); // create a buffer and tell it the data coming in is base64
+    var plain_auth = buf.toString();        // read it back out as a string
 
-  logger.debug(plain_auth);
+    logger.debug(plain_auth);
+  }
 }
