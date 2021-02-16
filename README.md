@@ -19,6 +19,7 @@ The configuration is done via the following environment variables:
 - TIMEOUT defines the session timeout in seconds
 - START_TESTSERVER defines if the testserver should be started
 - LOG_LEVEL is set to info by default. With debug you get a deeper insight
+- LOG_AS_TEXT pretty print the log output
 
 To setup the environment variables quickly the dotenv module is included in the project. So you can create a *.env* file in the root folder of this project and add the following content:
 
@@ -26,8 +27,9 @@ To setup the environment variables quickly the dotenv module is included in the 
 TARGET_URL=http://127.0.0.1:4004
 PORT=5050
 TIMEOUT=1500
-START_TESTSERVER=x
+START_TESTSERVER=true
 LOG_LEVEL=debug
+LOG_AS_TEXT=true
 ```
 
 ## Execution
@@ -39,7 +41,3 @@ To run the project on your local computer you have to install the required depen
 Then you can start it with:
 
 `npm start`
-
-If you want to get a nicely formated log output then use:
-
-`npm start | ./node_modules/.bin/pino-pretty`

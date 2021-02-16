@@ -4,7 +4,15 @@ var http = require('http'),
     httpProxy = require('http-proxy'),
     pino = require('pino');
 
-const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
+var prettyPrint = false;
+
+if(process.env.LOG_AS_TEXT !== 'false') {
+  prettyPrint = true;
+}
+const logger = pino({ 
+  level: process.env.LOG_LEVEL || 'info',
+  prettyPrint: prettyPrint
+});
 //
 // Create a proxy server with custom application logic
 //
