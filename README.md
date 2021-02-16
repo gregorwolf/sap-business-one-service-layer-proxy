@@ -29,3 +29,17 @@ TIMEOUT=1500
 START_TESTSERVER=x
 LOG_LEVEL=debug
 ```
+
+## Execution
+
+To run the project on your local computer you have to install the required dependencies with
+
+`npm i`
+
+Then you can start it with:
+
+`npm start`
+
+If you want to get a nicely formated log output then use:
+
+`npm start | ./node_modules/.bin/pino-pretty`
