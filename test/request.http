@@ -1,14 +1,22 @@
 ###
-GET http://localhost:5050/
+GET {{$dotenv SERVICE_LAYER}}
 
 ###
-GET http://localhost:5050/
+GET {{$dotenv SERVICE_LAYER}}
 Authorization: Basic {{$dotenv USERNAME}}:{{$dotenv PASSWORD}}
 
 ###
-GET http://localhost:5050/b1s/v2
+GET {{$dotenv SERVICE_LAYER}}/b1s/v2
 Authorization: Basic {{$dotenv USERNAME}}:{{$dotenv PASSWORD}}
 
 ###
-GET http://localhost:5050/b1s/v2/BusinessPartners('C15554')
+GET {{$dotenv SERVICE_LAYER}}/b1s/v2/BusinessPartners?$top=10&$select=CardCode,CardName
+Authorization: Basic {{$dotenv USERNAME}}:{{$dotenv PASSWORD}}
+
+###
+GET {{$dotenv SERVICE_LAYER}}/b1s/v2/BusinessPartners('C15554')
+Authorization: Basic {{$dotenv USERNAME}}:{{$dotenv PASSWORD}}
+
+###
+GET {{$dotenv SERVICE_LAYER}}/b1s/v2/Orders?$top=10&$select=DocEntry,DocNum,DocDate,CardName
 Authorization: Basic {{$dotenv USERNAME}}:{{$dotenv PASSWORD}}

@@ -24,7 +24,7 @@ The configuration is done via the following environment variables:
 To setup the environment variables quickly the dotenv module is included in the project. So you can create a *.env* file in the root folder of this project and add the following content:
 
 ```
-TARGET_URL=http://127.0.0.1:4004
+TARGET_URL=<FullURLtoYourServiceLayer or http://127.0.0.1:4004 if you set START_TESTSERVER=true>
 PORT=5050
 TIMEOUT=1500
 START_TESTSERVER=true
@@ -41,3 +41,15 @@ To run the project on your local computer you have to install the required depen
 Then you can start it with:
 
 `npm start`
+
+## Test
+
+If you want to run the REST Client test in *test/request.http* you have to create a *.env* file in the *test* folder with the following content:
+
+```
+USERNAME={"UserName":"<YourUser>","CompanyDB":"<YourCompanyDB>"}
+PASSWORD=<YourPassword>
+SERVICE_LAYER=http://localhost:5050
+```
+
+please adjust YourUser, YourCompanyDB and YourPassword with your credentials for the SAP Business One Service Layer.
