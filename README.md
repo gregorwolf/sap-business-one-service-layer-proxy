@@ -1,6 +1,10 @@
 # SAP Business One Service Layer Reverse Proxy
 
-This reverse proxy can be installed in front of the SAP Business One Service Layer to improve it's performance for multiple requests. Unfortunately the initial request to the Service Layer is very slow using basic authentication. The next requests are faster when you use the session cookie. But for requests coming from the SAP Cloud Applicaiton Programming Model the cookies are not handled. This proxy adds the functionality to cache the cookies. As the cookies are only valid for 30 minutes also a this timeout must be checked.
+This reverse proxy can be installed in front of the SAP Business One Service Layer to improve it's performance for multiple requests when called from the SAP Cloud Platform via the SAP Cloud connector. Unfortunately the initial request to the Service Layer is very slow using basic authentication. The next requests are faster when you use the session cookie. But for requests coming from the SAP Cloud Applicaiton Programming Model the cookies are not persisted. This proxy adds the functionality to cache the cookies. As the cookies are only valid for 30 minutes also a this timeout must be checked.
+
+## Architecture
+
+![Architecture](documentation/Architecture.png)
 
 ## Basic procedure
 
