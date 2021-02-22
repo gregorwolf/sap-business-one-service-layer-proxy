@@ -56,16 +56,17 @@ proxy.on("proxyReq", function (proxyReq, req, res, options) {
         logger.debug(proxySessions[req.headers.authorization].cookies);
         // Prepare the cookies to be sent in the request
         var cookie = "";
-        for (let index = 0; index < proxySessions[req.headers.authorization].cookies.length; index++) {
-          if(cookie !== "") {
+        for (
+          let index = 0;
+          index < proxySessions[req.headers.authorization].cookies.length;
+          index++
+        ) {
+          if (cookie !== "") {
             cookie += "; ";
           }
           cookie += proxySessions[req.headers.authorization].cookies[index];
         }
-        proxyReq.setHeader(
-          "cookie",
-          cookie
-        );
+        proxyReq.setHeader("cookie", cookie);
         delete req.headers["cookie"];
       }
     }
@@ -126,19 +127,15 @@ if (process.env.START_TESTSERVER) {
         logger.debug("testserver - decoded authorization header:");
         credentials = decodeBasicAuth(req);
         if (req.headers.authorization) {
-          if (serverSessions[req.headers.authorization]) {
-            if (
-              new Date().getTime() - config.timeout * 1000 >
+          if (
+            !serverSessions[req.headers.authorization] ||
+            new Date().getTime() - config.timeout * 1000 >
               serverSessions[req.headers.authorization].started
-            ) {
-              serverSessions[
-                req.headers.authorization
-              ] =  {
-                started: new Date().getTime()
-              };
-            }
-          } else {
-            serverSessions[req.headers.authorization].started = new Date().getTime();
+          ) {
+            // start a new timeout
+            serverSessions[req.headers.authorization] = {
+              started: new Date().getTime(),
+            };
           }
           header["Set-Cookie"] =
             "mycookie=" + serverSessions[req.headers.authorization].started;
