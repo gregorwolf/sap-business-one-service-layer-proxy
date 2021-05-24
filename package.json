@@ -4,7 +4,7 @@
   "description": "SAP Business One Service Layer Proxy",
   "main": "index.js",
   "engines": {
-    "node": "^10 || ^12 || ^14"
+    "node": "^12 || ^14"
   },
   "scripts": {
     "start": "node index.js",
@@ -23,7 +23,7 @@
   "author": "gregor.wolf@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^9.0.1",
+    "dotenv": "^10.0.0",
     "http-proxy": "^1.18.1",
     "pino": "^6.11.3"
   },
