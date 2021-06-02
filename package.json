@@ -28,6 +28,6 @@
     "pino": "^6.11.3"
   },
   "devDependencies": {
-    "pino-pretty": "^4.8.0"
+    "pino-pretty": "^5.0.2"
   }
 }
