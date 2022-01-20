@@ -25,7 +25,7 @@
   "dependencies": {
     "dotenv": "^10.0.0",
     "http-proxy": "^1.18.1",
-    "pino": "^7.6.0"
+    "pino": "^7.6.4"
   },
   "devDependencies": {
     "pino-pretty": "^7.3.0"
