@@ -23,7 +23,7 @@
   "author": "gregor.wolf@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^10.0.0",
+    "dotenv": "^16.0.1",
     "http-proxy": "^1.18.1",
     "pino": "^7.6.0"
   },
